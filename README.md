@@ -51,3 +51,4 @@ Contributors names and contact info
 Inspiration, code snippets, etc.
 * [RSA - Encryption and HUGE numbers - Numberphile](https://www.youtube.com/watch?v=M7kEpw1tn50)
 * [RSA (cryptosystem) - Wikipedia](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
+* [SHA-2 - Wikipedia](https://en.wikipedia.org/wiki/SHA-2)
