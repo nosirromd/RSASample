@@ -67,6 +67,7 @@ namespace RSASample
 
         private bool IsDocumentUnchanged(byte[] hash, byte[] data)
         {
+            //hash the doc again them compare hashes
             byte[] newHash = HashDocument(data);
             return newHash.SequenceEqual(hash);
         }
