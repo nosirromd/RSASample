@@ -24,11 +24,11 @@ namespace RSASample
 
         public void AliceTasks(out byte[] data, out byte[] hash, out byte[] signature)
         {
-            // create a key pair
+            Console.WriteLine("// create a key pair");
             InitAliceKeys();
 
-            // create some data; hash it, add a digital signature to the hash
-            // hand off these things to bob so that he can decrypt the message
+            Console.WriteLine("// create some data; hash it, add a digital signature to the hash");
+            Console.WriteLine("// hand off these things to bob so that he can decrypt the message");
             data = Encoding.UTF8.GetBytes("Bob, this is Alice. DC Morrison sends his best wishes to you.");
             hash = HashDocument(data);
             signature = AddSignatureToHash(hash, _aliceKey);
@@ -36,10 +36,10 @@ namespace RSASample
 
         public void BobTasks(byte[] data, byte[] hash, byte[] signature)
         {
-            // import alices public key
-            // validate the signiture
-            // use the hash to validate the data
-            // write the validated message to the console
+            Console.WriteLine("// import alices public key");
+            Console.WriteLine("// validate the signiture");
+            Console.WriteLine("// use the hash to validate the data");
+            Console.WriteLine("// write the validated message to the console");
             CngKey aliceKey = CngKey.Import(_alicePubKeyBlob, CngKeyBlobFormat.GenericPublicBlob);
             if (!IsSignatureValid(hash, signature, aliceKey))
             {
@@ -57,8 +57,8 @@ namespace RSASample
 
         private bool IsSignatureValid(byte[] hash, byte[] signature, CngKey key)
         {
-            // use the public key to create a RSA object
-            // use the RSA object to validate verify the hash and signature
+            Console.WriteLine("// use the public key to create a RSA object");
+            Console.WriteLine("// use the RSA object to validate verify the hash and signature");
             using (var signingAlg = new RSACng(key))
             {
                 return signingAlg.VerifyHash(hash, signature, HashAlgorithmName.SHA384, RSASignaturePadding.Pss);
@@ -67,22 +67,22 @@ namespace RSASample
 
         private bool IsDocumentUnchanged(byte[] hash, byte[] data)
         {
-            //hash the doc again them compare hashes
+            Console.WriteLine("//hash the doc again them compare hashes");
             byte[] newHash = HashDocument(data);
             return newHash.SequenceEqual(hash);
         }
 
         private void InitAliceKeys()
         {
-            // create a RSA key pair
+            Console.WriteLine("// create a RSA key pair");
             _aliceKey = CngKey.Create(CngAlgorithm.Rsa);
             _alicePubKeyBlob = _aliceKey.Export(CngKeyBlobFormat.GenericPublicBlob);
         }
 
         private byte[] HashDocument(byte[] data)
         {
-            //create SHA84 hashing object
-            //and hash the document
+            Console.WriteLine("//create SHA84 hashing object");
+            Console.WriteLine("//and hash the document");
             using (var hashAlg = SHA384.Create())
             {
                 return hashAlg.ComputeHash(data);
@@ -91,8 +91,8 @@ namespace RSASample
 
         private byte[] AddSignatureToHash(byte[] hash, CngKey key)
         {
-            // use the key to create an RSA object
-            // use the object to sign the hash
+            Console.WriteLine("// use the key to create an RSA object");
+            Console.WriteLine("// use the object to sign the hash");
             using (var signingAlg = new RSACng(key))
             {
                 byte[] signed = signingAlg.SignHash(hash, HashAlgorithmName.SHA384, RSASignaturePadding.Pss);
